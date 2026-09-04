@@ -27,6 +27,8 @@ try {
   /* $entity->createEntity("dog", "mammal", ["strength" => 11, "HP" => 56]); */
   /* print_r($entity->getAll()); */
   print_r($entity->getOne(16));
+  $entity->updateOne(16, "cat", "plush", ["intelligence" => 2, "will" => 67]);
+  print_r($entity->getOne(16));
 } catch (PDOException $e) {
   echo "Connection failed: " . $e->getMessage() . "\n";
 }

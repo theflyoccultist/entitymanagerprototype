@@ -60,4 +60,22 @@ class EntityManager
       return $row;
     }, $stmt->fetchAll());
   }
+
+  public function updateOne(int $id, string $name, string $type, array $components)
+  {
+    $stmt = $this->pdo->prepare("
+      UPDATE schema.entities
+      SET name = (:name), 
+          type = (:type), 
+          components = (:components)
+      WHERE ID = (:id)
+    ");
+
+    $stmt->execute([
+      'id' => $id,
+      'name' => $name,
+      'type' => $type,
+      'components' => json_encode($components)
+    ]);
+  }
 }
