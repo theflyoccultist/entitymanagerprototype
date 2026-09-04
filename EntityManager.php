@@ -78,4 +78,16 @@ class EntityManager
       'components' => json_encode($components)
     ]);
   }
+
+  public function deleteOne(int $id)
+  {
+    $stmt = $this->pdo->prepare("
+      DELETE FROM schema.entities
+      WHERE ID = (:id)
+    ");
+
+    $stmt->execute([
+      'id' => $id
+    ]);
+  }
 }
