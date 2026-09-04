@@ -1,0 +1,22 @@
+{
+    "name": "rin/entitymanagerprototype",
+    "description": "Entity manager system prototype using php pdo and postgresql jsonb",
+    "type": "project",
+    "require": {
+        "ext-pdo": "*",
+        "ext-pdo_pgsql": "*",
+        "vlucas/phpdotenv": "^5.7"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Rin\\Entitymanagerprototype\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "theflyoccultist",
+            "email": "y.delahaije@gmail.com"
+        }
+    ]
+}
