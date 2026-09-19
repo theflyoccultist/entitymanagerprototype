@@ -13,3 +13,28 @@ This project uses PostgreSQL, here's what you need to do to set it up:
 - Create a table, such as the one in the file `entities.sql`.
 - Fill username and password fields in `.env.example`, and rename it to `.env`
 
+### Now that I have the basic CRUD operations workings, it is time to move to JSONB querying.
+
+- Something like this:
+
+```
+NAME = "Pwat",
+TYPE = "Cat",
+```
+
+```json
+{
+  "profile": {
+    "age": 11,
+    "location": {
+      "country": "South Korea",
+      "city": "Busan"
+    }
+  },
+  "preferences": {
+    "favorite food": "Kimbap",
+    "least favorite food": "None"
+  }
+}
+
+```

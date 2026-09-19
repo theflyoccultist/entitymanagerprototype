@@ -24,13 +24,40 @@ try {
 
   echo "Connected successflly.\n";
   $entity = new EntityManager($pdo);
+
+  basicCRUD($entity);
+} catch (PDOException $e) {
+  echo "Connection failed: " . $e->getMessage() . "\n";
+}
+
+function basicCRUD(EntityManager $entity)
+{
   /* $entity->createEntity("dog", "mammal", ["strength" => 11, "HP" => 56]); */
   print_r($entity->getAll());
   print_r($entity->getOne(15));
-  $entity->updateOne(15, "cat", "plush", ["intelligence" => 2, "will" => 67, 'silliness' => 200]);
+
+  $entity->updateOne(
+    15,
+    "Pwat",
+    "Cat",
+    [
+
+      "profile" => [
+        "age" => 11,
+        "location" => [
+          "country" => "South Korea",
+          "city" => "Busan"
+        ]
+      ],
+      "preferences" => [
+        "favorite food" => "Kimbap",
+        "least favorite food" => "None"
+      ]
+
+    ]
+  );
+
   print_r($entity->getOne(15));
   /* $entity->deleteOne(16); */
   /* print_r($entity->getOne(16)); */
-} catch (PDOException $e) {
-  echo "Connection failed: " . $e->getMessage() . "\n";
 }
