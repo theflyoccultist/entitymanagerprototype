@@ -17,11 +17,6 @@ This project uses PostgreSQL, here's what you need to do to set it up:
 
 - Something like this:
 
-```
-NAME = "Pwat",
-TYPE = "Cat",
-```
-
 ```json
 {
   "profile": {

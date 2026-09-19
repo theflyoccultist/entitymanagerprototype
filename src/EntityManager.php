@@ -8,18 +8,16 @@ class EntityManager
 {
   public function __construct(private PDO $pdo) {}
 
-  public function createEntity(string $name, string $type, array $components): int
+  public function createOne(array $data): int
   {
     $stmt = $this->pdo->prepare("
-      INSERT INTO schema.entities (name, type, components)
-      VALUES (:name, :type, :components)
+      INSERT INTO schema.characterinfo (data)
+      VALUES (:data)
       RETURNING id
     ");
 
     $stmt->execute([
-      'name' => $name,
-      'type' => $type,
-      'components' => json_encode($components) // Convert PHP array to JSONB
+      'data' => json_encode($data) // Convert PHP array to JSONB
     ]);
 
     return $stmt->fetchColumn();
@@ -28,17 +26,15 @@ class EntityManager
   public function getAll(): array
   {
     $stmt = $this->pdo->query("
-      SELECT id, name, type, components
-      FROM schema.entities
+      SELECT id, data
+      FROM schema.characterinfo
     ");
 
     $result = [];
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
       $result[] = [
         "id" => $row['id'],
-        "name" => $row['name'],
-        "type" => $row['type'],
-        "components" => json_decode($row['components'], true)
+        "data" => json_decode($row['data'], true)
       ];
     }
 
@@ -48,41 +44,37 @@ class EntityManager
   public function getOne(int $id): array
   {
     $stmt = $this->pdo->prepare("
-      SELECT name, type, components
-      FROM schema.entities
+      SELECT data
+      FROM schema.characterinfo
       WHERE ID = ?
       ");
 
     $stmt->execute(array($id));
 
     return array_map(function ($row) {
-      $row['components'] = json_decode($row['components'], true);
+      $row['data'] = json_decode($row['data'], true);
       return $row;
     }, $stmt->fetchAll());
   }
 
-  public function updateOne(int $id, string $name, string $type, array $components)
+  public function updateOne(int $id, array $data)
   {
     $stmt = $this->pdo->prepare("
-      UPDATE schema.entities
-      SET name = (:name), 
-          type = (:type), 
-          components = (:components)
+      UPDATE schema.characterinfo
+      SET data = (:data)
       WHERE ID = (:id)
     ");
 
     $stmt->execute([
       'id' => $id,
-      'name' => $name,
-      'type' => $type,
-      'components' => json_encode($components)
+      'data' => json_encode($data)
     ]);
   }
 
   public function deleteOne(int $id)
   {
     $stmt = $this->pdo->prepare("
-      DELETE FROM schema.entities
+      DELETE FROM schema.characterinfo
       WHERE ID = (:id)
     ");
 

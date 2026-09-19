@@ -32,17 +32,31 @@ try {
 
 function basicCRUD(EntityManager $entity)
 {
-  /* $entity->createEntity("dog", "mammal", ["strength" => 11, "HP" => 56]); */
+  $entity->createOne(
+    [
+      "profile" => [
+        "name" => "Goofy",
+        "species" => "Dog",
+        "age" => 58,
+        "location" => [
+          "country" => "USA",
+          "city" => "Kentucky"
+        ]
+      ],
+      "preferences" => [
+        "favorite food" => "Burgers",
+        "least favorite food" => "Hot Dogs"
+      ]
+    ]
+  );
   print_r($entity->getAll());
-  print_r($entity->getOne(15));
 
   $entity->updateOne(
-    15,
-    "Pwat",
-    "Cat",
+    1,
     [
-
       "profile" => [
+        "name" => "Pwat",
+        "species" => "Cat",
         "age" => 11,
         "location" => [
           "country" => "South Korea",
@@ -53,11 +67,10 @@ function basicCRUD(EntityManager $entity)
         "favorite food" => "Kimbap",
         "least favorite food" => "None"
       ]
-
     ]
   );
 
-  print_r($entity->getOne(15));
+  print_r($entity->getOne(1));
   /* $entity->deleteOne(16); */
   /* print_r($entity->getOne(16)); */
 }
