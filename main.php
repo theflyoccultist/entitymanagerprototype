@@ -32,45 +32,40 @@ try {
 
 function basicCRUD(EntityManager $entity)
 {
-  $entity->createOne(
-    [
-      "profile" => [
-        "name" => "Goofy",
-        "species" => "Dog",
-        "age" => 58,
-        "location" => [
-          "country" => "USA",
-          "city" => "Kentucky"
-        ]
-      ],
-      "preferences" => [
-        "favorite food" => "Burgers",
-        "least favorite food" => "Hot Dogs"
-      ]
-    ]
-  );
-  print_r($entity->getAll());
+  /* $entity->createOne( */
+  /*   [ */
+  /*     "name" => "Murasaki", */
+  /*     "class" => "mage", */
+  /*     "stats" => [ */
+  /*       "strength" => 8, */
+  /*       "intelligence" => 17, */
+  /*       "agility" => 12 */
+  /*     ], */
+  /*     "equipment" => [ */
+  /*       "staff", */
+  /*       "cloak" */
+  /*     ] */
+  /*   ] */
+  /* ); */
 
   $entity->updateOne(
-    1,
+    7,
     [
-      "profile" => [
-        "name" => "Pwat",
-        "species" => "Cat",
-        "age" => 11,
-        "location" => [
-          "country" => "South Korea",
-          "city" => "Busan"
-        ]
+      "name" => "Kurata",
+      "class" => "mage",
+      "stats" => [
+        "strength" => 14,
+        "intelligence" => 19,
+        "agility" => 8
       ],
-      "preferences" => [
-        "favorite food" => "Kimbap",
-        "least favorite food" => "None"
+      "equipment" => [
+        "shiso",
+        "shamisen"
       ]
     ]
   );
 
-  print_r($entity->getOne(1));
+  print_r($entity->getAll());
+  /* print_r($entity->getOne(7)); */
   /* $entity->deleteOne(16); */
-  /* print_r($entity->getOne(16)); */
 }

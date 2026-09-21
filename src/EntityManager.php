@@ -82,4 +82,15 @@ class EntityManager
       'id' => $id
     ]);
   }
+
+  // utility function
+  // to be used only during testing and development
+  public function deleteAll()
+  {
+    $stmt = $this->pdo->prepare("
+      DELETE FROM schema.characterinfo
+      ");
+
+    $stmt->execute();
+  }
 }
