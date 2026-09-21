@@ -23,7 +23,7 @@ class EntityManager
     return $stmt->fetchColumn();
   }
 
-  public function findAll(): ?array
+  public function findAll(): array
   {
     $stmt = $this->pdo->query("
       SELECT id, data
@@ -32,10 +32,7 @@ class EntityManager
 
     $result = [];
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-      $result[] = [
-        'id' => $row['id'],
-        'data' => json_decode($row['data'], true)
-      ];
+      $result[] = $row;
     }
 
     return $result;

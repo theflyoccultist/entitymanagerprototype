@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome</title>
+</head>
+<body>
+
+{% if characters|length > 1 %}
+
+  {% for character in characters %}
+
+    <h1>Name: {{ character.name }}</h1>
+
+    <h4>Class: {{ character.class }}</h4>
+
+    <ul>
+      Stats:
+        <li> Strength: {{ character.stats.strength }} </li>
+        <li> Intelligence: {{ character.stats.intelligence }} </li>
+        <li> Agility: {{ character.stats.agility }} </li>
+    </ul>
+
+    <ol>
+      Equipment:
+      {% for item in character.equipment %}
+        <li> {{ item }} </li>
+      {% endfor %}
+    </ol>
+
+  {% endfor %}
+
+{% elseif characters|length == 1 %}
+
+<h1>Name: {{ characters.name }}</h1>
+
+<h4>Class: {{ characters.class }}</h4>
+
+<ul>
+  Stats:
+    <li> Strength: {{ characters.stats.strength }} </li>
+    <li> Intelligence: {{ characters.stats.intelligence }} </li>
+    <li> Agility: {{ characters.stats.agility }} </li>
+</ul>
+
+<ol>
+  Equipment:
+  {% for item in characters.equipment %}
+    <li> {{ item }} </li>
+  {% endfor %}
+</ol>
+
+
+{% else %}
+  <h1> This character list is empty!</h1>
+{% endif %}
+
+</body>
+</html>
