@@ -23,7 +23,7 @@ class EntityManager
     return $stmt->fetchColumn();
   }
 
-  public function getAll(): array
+  public function findAll(): ?array
   {
     $stmt = $this->pdo->query("
       SELECT id, data
@@ -33,37 +33,34 @@ class EntityManager
     $result = [];
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
       $result[] = [
-        "id" => $row['id'],
-        "data" => json_decode($row['data'], true)
+        'id' => $row['id'],
+        'data' => json_decode($row['data'], true)
       ];
     }
 
     return $result;
   }
 
-  public function getOne(int $id): array
+  public function find(int $id): ?array
   {
-    $stmt = $this->pdo->prepare("
-      SELECT data
+    $stmt = $this->pdo->prepare(
+      "SELECT id, data
       FROM schema.characterinfo
-      WHERE ID = ?
-      ");
+      WHERE ID = (:id)"
+    );
 
-    $stmt->execute(array($id));
+    $stmt->execute(['id' => $id]);
 
-    return array_map(function ($row) {
-      $row['data'] = json_decode($row['data'], true);
-      return $row;
-    }, $stmt->fetchAll());
+    return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
   }
 
   public function updateOne(int $id, array $data)
   {
-    $stmt = $this->pdo->prepare("
-      UPDATE schema.characterinfo
+    $stmt = $this->pdo->prepare(
+      "UPDATE schema.characterinfo
       SET data = (:data)
-      WHERE ID = (:id)
-    ");
+      WHERE ID = (:id)"
+    );
 
     $stmt->execute([
       'id' => $id,

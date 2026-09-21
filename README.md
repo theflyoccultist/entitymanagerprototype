@@ -1,5 +1,5 @@
 # Entity Manager Prototype: 
-# Character List - Lightweight Database API
+## Character List - Lightweight Database API
 
 ## Overview
 
@@ -38,3 +38,15 @@ This project uses PostgreSQL, here's what you need to do to set it up:
 ```
 
 - It will be stored as JSONB in the Postgres database.
+
+## Running the Project
+
+- Make sure to have PHP and Composer installed.
+- For development, use the PHP built-in server:
+
+```bash
+cd public/
+php -S localhost:8888
+```
+
+- For public networks, you should look into Apache.
