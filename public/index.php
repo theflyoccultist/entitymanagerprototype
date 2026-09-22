@@ -69,5 +69,6 @@ $app->addRoutingMiddleware();
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
 
 require 'characters.php';
+require 'edit.php';
 
 $app->run();

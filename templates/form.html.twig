@@ -7,5 +7,53 @@
 
   <h1>Create new entry</h1>
 
+  <form>
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br>
+    
+    <label for="class">Class:</label>
+    <select id="class" name="class">
+      <option value="Artificer">Artificer</option>
+      <option value="Barbarian">Barbarian</option>
+      <option value="Bard">Bard</option>
+      <option value="Cleric">Cleric</option>
+      <option value="Druid">Druid</option>
+      <option value="Fighter">Fighter</option>
+      <option value="Monk">Monk</option>
+      <option value="Ranger">Ranger</option>
+      <option value="Rogue">Rogue</option>
+      <option value="Paladin">Paladin</option>
+      <option value="Psion">Psion</option>
+      <option value="Sorcerer">Sorcerer</option>
+      <option value="Warlock">Warlock</option>
+      <option value="Wizard">Wizard</option>
+    </select><br>
+    
+    <label for="Strength">Strength:</label><br>
+    <select id="Strength" name="Strength">
+      {% for i in 1..20 %}
+        <option value="{{ i }}">{{ i }}</option>
+      {% endfor %}
+    </select><br>
+    
+    <label for="Intelligence">Intelligence:</label><br>
+    <select id="Intelligence" name="Intelligence">
+      {% for i in 1..20 %}
+        <option value="{{ i }}">{{ i }}</option>
+      {% endfor %}
+    </select><br>
+    
+    <label for="Agility">Agility:</label><br>
+    <select id="Agility" name="Agility">
+      {% for i in 1..20 %}
+        <option value="{{ i }}">{{ i }}</option>
+      {% endfor %}
+    </select><br>
+    
+    <label for="Equipment">Equipment:</label><br>
+  </form>
+
+  <button>Submit</button>
+
 </body>
 </html>

@@ -48,11 +48,11 @@ This project uses PostgreSQL, here's what you need to do to set it up:
 ## Running the Project
 
 - Make sure to have PHP and Composer installed.
-- For development, use the PHP built-in server:
+- For development, use the PHP built-in Development Server:
 
 ```bash
 cd public/
 php -S localhost:8888
 ```
 
-- For public networks, you should look into Apache.
+- For production, you should look into Apache.

@@ -8,13 +8,13 @@ $app->get('/characters', function (Request $request, Response $response, $args) 
   $view = Twig::fromRequest($request);
 
   $characters = $entity->findAll();
-  $json_array = [];
+  $decodedCharacters = [];
   foreach ($characters as $character) {
-    $json_array[] = json_decode($character['data']);
+    $decodedCharacters[] = json_decode($character['data']);
   }
 
   return $view->render($response, 'characters.html.twig', [
-    'characters' => $json_array,
+    'characters' => $decodedCharacters,
   ]);
 });
 
@@ -23,22 +23,15 @@ $app->get('/characters/{id}', function (Request $request, Response $response, $a
   $id = $args['id'];
 
   $characters = $entity->find($id);
-  $character = json_decode($characters['data']);
+  $decodedCharacter = json_decode($characters['data']);
 
   return $view->render($response, 'characters.html.twig', [
-    'characters' => $character,
+    'characters' => $decodedCharacter,
   ]);
 });
 
 $app->post('/characters', function (Request $request, Response $response, $args) use ($entity) {
-  $createdId = $entity->createOne($args['data']);
-
-  $response->getBody()->write(
-    json_encode($createdId)
-  );
-
-  return $response
-    ->withHeader('Content-Type', 'application/json');
+  $entity->createOne($args['data']);
 });
 
 $app->put('/characters/{id}', function (Request $request, Response $response, $args) use ($entity) {
