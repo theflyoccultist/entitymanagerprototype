@@ -7,7 +7,7 @@
 
   <h1>Create new entry</h1>
 
-  <form>
+  <form action="" method="post">
     <label for="name">Name:</label><br>
     <input type="text" id="name" name="name"><br>
     
@@ -50,10 +50,19 @@
       {% endfor %}
     </select><br>
     
-    <label for="Equipment">Equipment:</label><br>
-  </form>
+    <fieldset>
+    <legend>Equipment</legend>
 
-  <button>Submit</button>
+      {% for i in 1..5 %}
+        <label>
+            Item {{ i }}
+            <input type="text" name="equipment[]"><br>
+        </label>
+      {% endfor %}
+    </fieldset>
+  
+  <input type="submit" name="add" value="Submit" />
+  </form>
 
 </body>
 </html>
