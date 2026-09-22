@@ -2,8 +2,6 @@
 
 namespace Rin\Entitymanagerprototype;
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
@@ -55,53 +53,21 @@ $twig = Twig::create(__DIR__ . '/../templates', ['cache' => false]);
 
 $app->add(TwigMiddleware::create($app, $twig));
 
-$app->get('/characters', function (Request $request, Response $response, $args) use ($entity) {
-  $view = Twig::fromRequest($request);
+$app->addRoutingMiddleware();
 
-  $characters = $entity->findAll();
-  $json_array = [];
-  foreach ($characters as $character) {
-    $json_array[] = json_decode($character['data']);
-  }
+/**
+ * Add Error Middleware
+ *
+ * @param bool                  $displayErrorDetails -> Should be set to false in production
+ * @param bool                  $logErrors -> Parameter is passed to the default ErrorHandler
+ * @param bool                  $logErrorDetails -> Display error details in error log
+ * @param LoggerInterface|null  $logger -> Optional PSR-3 Logger  
+ *
+ * Note: This middleware should be added last. It will not handle any exceptions/errors
+ * for middleware added after it.
+ */
+$errorMiddleware = $app->addErrorMiddleware(true, true, true);
 
-  return $view->render($response, 'characters.html.twig', [
-    'characters' => $json_array,
-  ]);
-});
-
-$app->get('/characters/{id}', function (Request $request, Response $response, $args) use ($entity) {
-  $view = Twig::fromRequest($request);
-  $id = $args['id'];
-
-  $characters = $entity->find($id);
-  $json_array = json_decode($characters['data']);
-
-  return $view->render($response, 'characters.html.twig', [
-    'characters' => $json_array,
-  ]);
-});
-
-$app->post('/characters', function (Request $request, Response $response, $args) use ($entity) {
-  $createdId = $entity->createOne($args['data']);
-
-  $response->getBody()->write(
-    json_encode($createdId)
-  );
-
-  return $response
-    ->withHeader('Content-Type', 'application/json');
-});
-
-$app->put('/characters/{id}', function (Request $request, Response $response, $args) use ($entity) {
-  $id = $args['id'];
-
-  $entity->updateOne($id, $args['data']);
-});
-
-$app->delete('/characters/{id}', function (Request $request, Response $response, $args) use ($entity) {
-  $id = $args['id'];
-
-  $entity->deleteOne($id);
-});
+require 'characters.php';
 
 $app->run();

@@ -7,6 +7,12 @@
 - I also wanted to continue using PHP and its scripting capabilities, especially networking ones with API design and web servers.
 - The reason I chose to use Postgres was that I wanted to experiment with document querying, without committing to a NoSQL architecture.
 
+## Features
+
+- Display the JSON document storage, existing characters.
+- Give the user the possibility to modify, or add new characters.
+- A search tool, to look for specific data in characters.
+
 ## Database Setup
 
 This project uses PostgreSQL, here's what you need to do to set it up:
