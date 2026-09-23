@@ -7,7 +7,7 @@
 
   <h1>Create new entry</h1>
 
-  <form action="" method="post">
+  <form action="/form" method="post">
     <label for="name">Name:</label><br>
     <input type="text" id="name" name="name"><br>
     
@@ -29,22 +29,22 @@
       <option value="Wizard">Wizard</option>
     </select><br>
     
-    <label for="Strength">Strength:</label><br>
-    <select id="Strength" name="Strength">
+    <label for="agility">Agility:</label><br>
+    <select id="agility" name="agility">
       {% for i in 1..20 %}
         <option value="{{ i }}">{{ i }}</option>
       {% endfor %}
     </select><br>
     
-    <label for="Intelligence">Intelligence:</label><br>
-    <select id="Intelligence" name="Intelligence">
+    <label for="strength">Strength:</label><br>
+    <select id="strength" name="strength">
       {% for i in 1..20 %}
         <option value="{{ i }}">{{ i }}</option>
       {% endfor %}
     </select><br>
     
-    <label for="Agility">Agility:</label><br>
-    <select id="Agility" name="Agility">
+    <label for="intelligence">Intelligence:</label><br>
+    <select id="intelligence" name="intelligence">
       {% for i in 1..20 %}
         <option value="{{ i }}">{{ i }}</option>
       {% endfor %}
@@ -61,7 +61,7 @@
       {% endfor %}
     </fieldset>
   
-  <input type="submit" name="add" value="Submit" />
+    <input type="submit" value="Submit" />
   </form>
 
 </body>

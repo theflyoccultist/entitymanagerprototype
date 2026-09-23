@@ -11,8 +11,16 @@ $app->get('/form', function (Request $request, Response $response, $args) {
 });
 
 $app->post('/form', function (Request $request, Response $response, $args) use ($entity) {
-  $createdId = $entity->createOne($args);
+  $data = [
+    "name" => htmlspecialchars($_POST['name']),
+    "class" => htmlspecialchars($_POST['class']),
+    "stats" => ["agility" => htmlspecialchars($_POST['agility']), 
+                "strength" => htmlspecialchars($_POST['strength']), 
+                "intelligence" => htmlspecialchars($_POST['intelligence'])],
+    "equipment" => array_map('htmlspecialchars', $_POST['equipment'])
+  ];
 
-  return $response;
+  $entity->createOne($data);
+  
+  return $response->withStatus(302)->withHeader('Location', 'characters');
 });
-

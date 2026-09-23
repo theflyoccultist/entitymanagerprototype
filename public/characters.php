@@ -29,3 +29,22 @@ $app->get('/characters/{id}', function (Request $request, Response $response, $a
     'characters' => $decodedCharacter,
   ]);
 });
+
+$app->post('/characters', function (Request $request, Response $response, $args) use ($entity) {
+  $entity->createOne($args['data']);
+  return $response;
+});
+
+$app->put('/characters/{id}', function (Request $request, Response $response, $args) use ($entity) {
+  $id = $args['id'];
+
+  $entity->updateOne($id, $args['data']);
+  return $response;
+});
+
+$app->delete('/characters/{id}', function (Request $request, Response $response, $args) use ($entity) {
+  $id = $args['id'];
+
+  $entity->deleteOne($id);
+  return $response;
+});

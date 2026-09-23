@@ -21,31 +21,33 @@ $password = $_ENV['PASSWORD'];
 $pdo = DBConnect($dsn, $username, $password);
 $entity = new EntityManager($pdo);
 
-// basicCRUD function will be deleted soon
+// basicCRUD function used for debug
 function basicCRUD(EntityManager $entity)
 {
-  $entity->updateOne(
-    7,
-    [
-      "name" => "Kurata",
-      "class" => "mage",
-      "stats" => [
-        "strength" => 14,
-        "intelligence" => 19,
-        "agility" => 8
-      ],
-      "equipment" => [
-        "shiso",
-        "shamisen"
-      ]
-    ]
-  );
+  /* $entity->updateOne( */
+  /*   7, */
+  /*   [ */
+  /*     "name" => "Kurata", */
+  /*     "class" => "mage", */
+  /*     "stats" => [ */
+  /*       "strength" => 14, */
+  /*       "intelligence" => 19, */
+  /*       "agility" => 8 */
+  /*     ], */
+  /*     "equipment" => [ */
+  /*       "shiso", */
+  /*       "shamisen" */
+  /*     ] */
+  /*   ] */
+  /* ); */
 
   print_r($entity->findAll());
   /* print_r($entity->find(7)); */
   /* print_r($entity->getOne(7)); */
   /* $entity->deleteOne(16); */
 }
+
+/* basicCRUD($entity); */
 
 $app = AppFactory::create();
 
