@@ -5,67 +5,98 @@
 </head>
 <body>
 
-  {% if app.request.attributes.get('_route') == '' %}
+  {% if mode == 'create' %}
     <h1>Create new entry</h1>
   {% else %}
     <h1>Edit entry</h1>
   {% endif %}
 
-  <form action="/form" method="post">
+  {% if mode == 'create' %}
+    <form action="/form" method="post">
+  {% else %}
+    <form action="/form/{{ id }}" method="post">
+  {% endif %}
     <label for="name">Name:</label><br>
-    <input type="text" id="name" name="name"><br>
+    <input type="text" id="name" name="name" value="{{ character.name }}"><br>
     
+    {% set classes = ['Artificer', 'Barbarian', 'Bard', 'Cleric',
+    'Druid', 'Fighter', 'Mage', 'Monk', 'Ranger', 'Rogue', 'Paladin', 
+    'Psion', 'Sorcerer', 'Warlock'] %}
+
     <label for="class">Class:</label>
     <select id="class" name="class">
-      <option value="Artificer">Artificer</option>
-      <option value="Barbarian">Barbarian</option>
-      <option value="Bard">Bard</option>
-      <option value="Cleric">Cleric</option>
-      <option value="Druid">Druid</option>
-      <option value="Fighter">Fighter</option>
-      <option value="Monk">Monk</option>
-      <option value="Ranger">Ranger</option>
-      <option value="Rogue">Rogue</option>
-      <option value="Paladin">Paladin</option>
-      <option value="Psion">Psion</option>
-      <option value="Sorcerer">Sorcerer</option>
-      <option value="Warlock">Warlock</option>
-      <option value="Wizard">Wizard</option>
-    </select><br>
-    
-    <label for="agility">Agility:</label><br>
-    <select id="agility" name="agility">
-      {% for i in 1..20 %}
-        <option value="{{ i }}">{{ i }}</option>
+      {% for cl in classes %}
+        {% if character.class == cl %}
+          <option value="{{ cl }}" selected>{{ cl }}</option>
+        {% else %}
+          <option value="{{ cl }}">{{ cl }}</option>
+        {% endif %}
       {% endfor %}
     </select><br>
     
     <label for="strength">Strength:</label><br>
     <select id="strength" name="strength">
       {% for i in 1..20 %}
-        <option value="{{ i }}">{{ i }}</option>
+        {% if character.stats.strength == i %}
+          <option value="{{ i }}" selected>{{ i }}</option>
+        {% else %}
+          <option value="{{ i }}">{{ i }}</option>
+        {% endif %}
       {% endfor %}
     </select><br>
     
     <label for="intelligence">Intelligence:</label><br>
     <select id="intelligence" name="intelligence">
       {% for i in 1..20 %}
-        <option value="{{ i }}">{{ i }}</option>
+        {% if character.stats.intelligence == i %}
+          <option value="{{ i }}" selected>{{ i }}</option>
+        {% else %}
+          <option value="{{ i }}">{{ i }}</option>
+        {% endif %}
+      {% endfor %}
+    </select><br>
+    
+    <label for="agility">Agility:</label><br>
+    <select id="agility" name="agility">
+      {% for i in 1..20 %}
+        {% if character.stats.agility == i %}
+          <option value="{{ i }}" selected>{{ i }}</option>
+        {% else %}
+          <option value="{{ i }}">{{ i }}</option>
+        {% endif %}
       {% endfor %}
     </select><br>
     
     <fieldset>
     <legend>Equipment</legend>
-
-      {% for i in 1..5 %}
-        <label>
+      {% if mode == 'create' %}
+      
+        {% for i in 1..5 %}
+          <label>
             Item {{ i }}
             <input type="text" name="equipment[]"><br>
-        </label>
-      {% endfor %}
+          </label>
+        {% endfor %}
+     
+      {% else %}
+ 
+        {% for i in 1..5 %}
+          <label>
+            Item {{ i }}
+            <input type="text" name="equipment[]" value="{{ character.equipment[i] }}"><br>
+          </label>
+        {% endfor %}
+
+      {% endif %}
     </fieldset>
   
-    <input type="submit" value="Submit" />
+    {% if mode == 'create' %}
+      <input type="submit" value="Submit" />
+    {% else %}
+      <input type="hidden" name="_METHOD" value="PUT">
+      <input type="submit" value="Edit"><p>
+    {% endif %}
+  
   </form>
 
 </body>

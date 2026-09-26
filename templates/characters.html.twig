@@ -23,7 +23,9 @@
     <ol>
       Equipment:
       {% for item in character.equipment %}
-        <li> {{ item }} </li>
+        {% if item is not empty %}
+          <li> {{ item }} </li>
+        {% endif %}
       {% endfor %}
     </ol>
   {% endfor %}
@@ -44,7 +46,9 @@
   <ol>
     Equipment:
     {% for item in characters.equipment %}
-      <li> {{ item }} </li>
+      {% if item is not empty %}
+        <li> {{ item }} </li>
+      {% endif %}
     {% endfor %}
   </ol>
    
