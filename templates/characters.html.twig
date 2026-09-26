@@ -9,6 +9,7 @@
 
   {% for character in characters %}
     <h1>Name: {{ character.name }}</h1>
+    <a href="/characters/{{ id[loop.index - 1] }}">Access</a>
 
     <h4>Class: {{ character.class }}</h4>
 
@@ -46,6 +47,13 @@
       <li> {{ item }} </li>
     {% endfor %}
   </ol>
+   
+  <a href="/form/{{ id }}">Edit</a>
+  
+  <form action="" method="post">
+    <input type="hidden" name="_METHOD" value="DELETE">
+    <input type="submit" value="Delete"><p>
+  </form>
 
 
 {% else %}

@@ -10,6 +10,19 @@ $app->get('/form', function (Request $request, Response $response, $args) {
   return $view->render($response, 'form.html.twig', []);
 });
 
+$app->get('/form/{id}', function (Request $request, Response $response, $args) use ($entity) {
+  $view = Twig::fromRequest($request);
+  $id = $args['id'];
+
+  $characters = $entity->find($id);
+  $decodedCharacter = json_decode($characters['data']);
+
+  return $view->render($response, 'formedit.html.twig', [
+    'characters' => $decodedCharacter,
+  ]);
+});
+
+
 $app->post('/form', function (Request $request, Response $response, $args) use ($entity) {
   $data = [
     "name" => htmlspecialchars($_POST['name']),

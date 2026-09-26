@@ -5,7 +5,11 @@
 </head>
 <body>
 
-  <h1>Create new entry</h1>
+  {% if app.request.attributes.get('_route') == '' %}
+    <h1>Create new entry</h1>
+  {% else %}
+    <h1>Edit entry</h1>
+  {% endif %}
 
   <form action="/form" method="post">
     <label for="name">Name:</label><br>

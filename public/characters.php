@@ -9,12 +9,15 @@ $app->get('/characters', function (Request $request, Response $response, $args) 
 
   $characters = $entity->findAll();
   $decodedCharacters = [];
+  $id = [];
   foreach ($characters as $character) {
+    $id[] = $character['id'];
     $decodedCharacters[] = json_decode($character['data']);
   }
 
   return $view->render($response, 'characters.html.twig', [
     'characters' => $decodedCharacters,
+    'id' => $id
   ]);
 });
 
@@ -27,24 +30,20 @@ $app->get('/characters/{id}', function (Request $request, Response $response, $a
 
   return $view->render($response, 'characters.html.twig', [
     'characters' => $decodedCharacter,
+    'id' => $id
   ]);
-});
-
-$app->post('/characters', function (Request $request, Response $response, $args) use ($entity) {
-  $entity->createOne($args['data']);
-  return $response;
 });
 
 $app->put('/characters/{id}', function (Request $request, Response $response, $args) use ($entity) {
   $id = $args['id'];
 
   $entity->updateOne($id, $args['data']);
-  return $response;
+  return $response->withHeader('Location', '/characters')->withStatus(303);
 });
 
 $app->delete('/characters/{id}', function (Request $request, Response $response, $args) use ($entity) {
   $id = $args['id'];
 
   $entity->deleteOne($id);
-  return $response;
+  return $response->withHeader('Location', '/characters')->withStatus(303);
 });
