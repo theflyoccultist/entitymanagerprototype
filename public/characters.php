@@ -34,13 +34,6 @@ $app->get('/characters/{id}', function (Request $request, Response $response, $a
   ]);
 });
 
-$app->put('/characters/{id}', function (Request $request, Response $response, $args) use ($entity) {
-  $id = $args['id'];
-
-  $entity->updateOne($id, $args['data']);
-  return $response->withHeader('Location', '/characters')->withStatus(303);
-});
-
 $app->delete('/characters/{id}', function (Request $request, Response $response, $args) use ($entity) {
   $id = $args['id'];
 
