@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Welcome</title>
+  <title>Characters</title>
 </head>
 <body>
+  <a href="/search">Search for characters</a>
 
 {% if characters|length > 1 %}
 
@@ -33,6 +34,7 @@
 {% elseif characters|length == 1 %}
 
   <h1>Name: {{ characters.name }}</h1>
+  <a href="/characters">Back to Characters List</a>
 
   <h4>Class: {{ characters.class }}</h4>
 

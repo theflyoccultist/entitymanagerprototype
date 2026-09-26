@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Search</title>
+</head>
+<body>
+  <h1>Search for an entry</h1>
+    
+  <label for="name">Name contains:</label><br>
+  <input type="text" id="name" name="name" value="name"><br>
+ 
+  <label for="stats">Stats:</label><br>
+  {% for stat in ['strength', 'intelligence', 'agility'] %}
+    <label for="{{ stat }}">{{ stat|capitalize }} :</label>
+    <select>
+      {% for cmp in ['less than', 'equal to', 'more than'] %}
+        <option value="{{ cmp }}">{{ cmp }}</option>
+      {% endfor %}
+    </select>
+    <select>
+      {% for i in 1..20 %}
+        <option value="{{ i }}">{{ i }}</option>
+      {% endfor %}
+   </select><br>
+  {% endfor %}
+ 
+  <label for="stats">Equipment contains:</label><br>
+  <input type="text" id="equipment" name="equipment" value="equipment"><br>
+
+</body>
+</html>

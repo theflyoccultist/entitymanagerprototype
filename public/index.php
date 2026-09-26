@@ -74,5 +74,6 @@ $errorMiddleware = $app->addErrorMiddleware(true, true, true);
 
 require 'characters.php';
 require 'edit.php';
+require 'search.php';
 
 $app->run();
